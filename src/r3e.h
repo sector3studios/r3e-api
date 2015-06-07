@@ -41,12 +41,19 @@ typedef enum
     R3E_VEC3_SIZE
 } r3e_vec3;
 
+// Make sure everything is tightly packed, to prevent
+// the compiler from adding any hidden padding
+#pragma pack(push, 1)
+
 // High precision data for player's vehicle only
 typedef struct
 {
     // Virtual physics time
     // Unit: Ticks (1 tick = 1/400th of a second)
     r3e_int32 gameSimulationTicks;
+
+    // Padding to accomodate for legacy alignment
+    r3e_int32 _padding1;
 
     // Virtual physics time
     // Unit: Seconds
@@ -174,6 +181,11 @@ typedef struct
     //  1 = engaged
     r3e_int32 drsEngaged;
 
+    // Padding to accomodate for legacy alignment
+    r3e_int32 _padding1;
+
     // High precision data for player's vehicle only
     r3e_playerdata player;
 } r3e_shared;
+
+#pragma pack(pop)
