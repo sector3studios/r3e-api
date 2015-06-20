@@ -13,42 +13,42 @@ typedef double r3e_float64;
 
 typedef struct
 {
-	r3e_float32 x;
-	r3e_float32 y;
-	r3e_float32 z;
+    r3e_float32 x;
+    r3e_float32 y;
+    r3e_float32 z;
 } r3e_vec3_f32;
 
 typedef struct
 {
-	r3e_float64 x;
-	r3e_float64 y;
-	r3e_float64 z;
+    r3e_float64 x;
+    r3e_float64 y;
+    r3e_float64 z;
 } r3e_vec3_f64;
 
 typedef struct
 {
-	r3e_float32 pitch;
-	r3e_float32 yaw;
-	r3e_float32 roll;
+    r3e_float32 pitch;
+    r3e_float32 yaw;
+    r3e_float32 roll;
 } r3e_orientation_f32;
 
 typedef struct
 {
-	r3e_float32 frontleft_left;
-	r3e_float32 frontleft_center;
-	r3e_float32 frontleft_right;
+    r3e_float32 frontleft_left;
+    r3e_float32 frontleft_center;
+    r3e_float32 frontleft_right;
 
-	r3e_float32 frontright_left;
-	r3e_float32 frontright_center;
-	r3e_float32 frontright_right;
+    r3e_float32 frontright_left;
+    r3e_float32 frontright_center;
+    r3e_float32 frontright_right;
 
-	r3e_float32 rearleft_left;
-	r3e_float32 rearleft_center;
-	r3e_float32 rearleft_right;
+    r3e_float32 rearleft_left;
+    r3e_float32 rearleft_center;
+    r3e_float32 rearleft_right;
 
-	r3e_float32 rearright_left;
-	r3e_float32 rearright_center;
-	r3e_float32 rearright_right;
+    r3e_float32 rearright_left;
+    r3e_float32 rearright_center;
+    r3e_float32 rearright_right;
 } r3e_tiretemps;
 
 // High precision data for player's vehicle only
