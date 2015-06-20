@@ -107,10 +107,10 @@ int main()
                 wprintf_s(L"Gear: %i\n", map_buffer->gear);
             }
 
-            if (map_buffer->engineRps > -1.f)
+            if (map_buffer->engine_rps > -1.f)
             {
-                wprintf_s(L"RPM: %.3f\n", map_buffer->engineRps * RPS_TO_RPM);
-                wprintf_s(L"Speed: %.3f km/h\n", map_buffer->carSpeed * MPS_TO_KPH);
+                wprintf_s(L"RPM: %.3f\n", map_buffer->engine_rps * RPS_TO_RPM);
+                wprintf_s(L"Speed: %.3f km/h\n", map_buffer->car_speed * MPS_TO_KPH);
             }
 
             wprintf_s(L"\n");
