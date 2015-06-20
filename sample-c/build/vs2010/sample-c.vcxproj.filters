@@ -23,7 +23,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\README.md" />
-    <None Include="..\..\LICENSE" />
+    <None Include="..\..\..\README.md" />
+    <None Include="..\..\..\LICENSE" />
   </ItemGroup>
 </Project>

@@ -2,5 +2,6 @@
 *.vcxproj.user
 *.opensdf
 *.sdf
+*.ipch
 bin/
 obj/
