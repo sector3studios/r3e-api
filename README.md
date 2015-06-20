@@ -11,9 +11,12 @@ application it will print some of the live data for another ten minutes.
 ## Prerequisites
 
 - [RaceRoom Racing Experience][r3e]
-- Any C89-compatible C/C++ compiler should be fine. There are project files for
-Visual Studio 2010 and 2013 in the `build` directory. You can download the free
-Community version of Visual Studio 2013 [here][vs2013].
+- _(sample-c)_ Any C89-compatible C/C++ compiler should be fine. There are
+project files for Visual Studio 2010 and 2013 in the `build` directory. You can
+download the free Community version of Visual Studio 2013 [here][vs2013].
+- _(sample-csharp)_ The sample is targeted towards .NET 4.0, but might work with
+earlier ones. There are build files for Visual Studio 2013 in the `build`
+directory.
 
 
 ## License
