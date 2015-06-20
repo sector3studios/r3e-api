@@ -24,8 +24,8 @@ namespace R3E
 
         public void Dispose()
         {
-            _file.Dispose();
             _view.Dispose();
+            _file.Dispose();
         }
 
         public void Run()
