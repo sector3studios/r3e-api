@@ -121,10 +121,10 @@ namespace R3E
             // Unit: Liters (l)
             public Single FuelCapacity;
 
-            // Unit: Kelvin (K)
+            // Unit: Celsius (C)
             public Single EngineWaterTemp;
 
-            // Unit: Kelvin (K)
+            // Unit: Celsius (C)
             public Single EngineOilTemp;
 
             // Unit: Kilopascals (KPa)
@@ -162,7 +162,7 @@ namespace R3E
             public Int32 Gear;
 
             // Temperature of three points across the tread of each tire
-            // Unit: Kelvin (K)
+            // Unit: Celsius (C)
             public TireTemperature TireTemp;
 
             // Number of penalties pending for the player

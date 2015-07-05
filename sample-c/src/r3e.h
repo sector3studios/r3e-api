@@ -118,10 +118,10 @@ typedef struct
     // Unit: Liters (l)
     r3e_float32 fuel_capacity;
 
-    // Unit: Kelvin (K)
+    // Unit: Celsius (C)
     r3e_float32 engine_water_temp;
 
-    // Unit: Kelvin (K)
+    // Unit: Celsius (C)
     r3e_float32 engine_oil_temp;
 
     // Unit: Kilopascals (KPa)
@@ -159,7 +159,7 @@ typedef struct
     r3e_int32 gear;
 
     // Temperature of three points across the tread of each tire
-    // Unit: Kelvin (K)
+    // Unit: Celsius (C)
     r3e_tiretemps tire_temps;
 
     // Number of penalties pending for the player
