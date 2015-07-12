@@ -91,9 +91,16 @@ namespace R3E
             Shared data;
             _view.Read(0, out data);
 
-            Console.WriteLine("Best: {0}", data.LapTimeBest);
-            Console.WriteLine("Current: {0}", data.LapTimeCurrent);
-            Console.WriteLine("Previous: {0}", data.LapTimePrevious);
+	        if(data.Gear >= -1)
+	        {
+				Console.WriteLine("Gear: {0}", data.Gear);
+	        }
+
+	        if(data.EngineRps > -1.0f)
+	        {
+				Console.WriteLine("RPM: {0}", Utilities.RpsToRpm(data.EngineRps));
+		        Console.WriteLine("Speed: {0}", Utilities.MpsToKph(data.CarSpeed));
+	        }
 
             Console.WriteLine("");
         }
