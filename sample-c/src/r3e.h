@@ -5,6 +5,7 @@
 typedef int32_t r3e_int32;
 typedef float r3e_float32;
 typedef double r3e_float64;
+typedef uint8_t r3e_u8char;
 
 #define R3E_SHARED_MEMORY_NAME "$Race$"
 
@@ -82,6 +83,42 @@ typedef enum
     R3E_TIRE_TYPE_OPTION = 0,
     R3E_TIRE_TYPE_PRIME = 1,
 } r3e_tire_type;
+
+typedef enum
+{
+	// No mandatory pitstops
+    R3E_PITSTOP_STATUS_UNAVAILABLE = -1,
+
+	// Mandatory pitstop not served yet
+    R3E_PITSTOP_STATUS_UNSERVED = 0,
+
+	// Mandatory pitstop served
+    R3E_PITSTOP_STATUS_SERVED = 1,
+} r3e_pitstop_status;
+
+typedef enum
+{
+	// N/A
+    R3E_FINISH_STATUS_UNAVAILABLE = -1,
+
+	// Still on track, not finished
+    R3E_FINISH_STATUS_NONE = 0,
+
+	// Finished session normally
+    R3E_FINISH_STATUS_FINISHED = 1,
+
+	// Did not finish
+    R3E_FINISH_STATUS_DNF = 2,
+
+	// Did not qualify
+    R3E_FINISH_STATUS_DNQ = 3,
+
+	// Did not start
+    R3E_FINISH_STATUS_DNS = 4,
+
+	// Disqualified
+    R3E_FINISH_STATUS_DQ = 5,
+} r3e_finish_status;
 
 // Make sure everything is tightly packed, to prevent the compiler from adding any hidden padding
 #pragma pack(push, 1)
@@ -240,6 +277,75 @@ typedef struct
     r3e_int32 time_deduction;
     r3e_int32 slow_down;
 } r3e_cut_track_penalties;
+
+typedef struct
+{
+    r3e_float32 front_left;
+    r3e_float32 front_right;
+    r3e_float32 rear_left;
+    r3e_float32 rear_right;
+} r3e_tyre_dirt;
+
+typedef struct
+{
+    r3e_float32 front_left;
+    r3e_float32 front_right;
+    r3e_float32 rear_left;
+    r3e_float32 rear_right;
+} r3e_wheel_speed;
+
+typedef struct
+{
+	r3e_int32 track_id;
+	r3e_int32 layout_id;
+	r3e_float32 length;
+} r3e_track_info;
+
+typedef struct
+{
+	r3e_int32 available;
+	r3e_int32 engaged;
+	r3e_int32 amount_left;
+	r3e_float32 engaged_time_left;
+	r3e_float32 wait_time_left;
+} r3e_push_to_pass;
+
+typedef struct
+{
+	r3e_u8char name[64];
+	r3e_int32 car_number;
+	r3e_int32 class_id;
+	r3e_int32 model_id;
+	r3e_int32 team_id;
+	r3e_int32 livery_id;
+	r3e_int32 manufacturer_id;
+	r3e_int32 slot_id;
+	r3e_int32 class_performance_index;
+} r3e_driver_info;
+
+typedef struct
+{
+	r3e_driver_info driver_info;
+	r3e_finish_status finish_status;
+	r3e_int32 place;
+	r3e_float32 lap_distance;
+	r3e_vec3_f32 position;
+	r3e_int32 track_sector;
+    r3e_int32 completed_laps;
+	r3e_int32 current_lap_valid;
+    r3e_float32 lap_time_current_self;
+    r3e_float32 sector_time_current_self[3];
+    r3e_float32 sector_time_previous_self[3];
+    r3e_float32 sector_time_best_self[3];
+    r3e_float32 time_delta_front;
+    r3e_float32 time_delta_behind;
+	r3e_pitstop_status pitstop_status;
+	r3e_int32 in_pitlane;
+	r3e_int32 num_pitstops;
+    r3e_cut_track_penalties penalties;
+    r3e_float32 car_speed;
+    r3e_int32 tire_type;
+} r3e_driver_data_1;
 
 typedef struct
 {
@@ -424,8 +530,8 @@ typedef struct
     // Reserved for future (proper) implementation of sector_time_delta_leader
     r3e_float32 reserved3[3];
 
-    // Reserved for future (proper) implementation of sector_time_delta_leader_class
-    r3e_float32 reserved4[3];
+    // Sector times of fastest lap by anyone in session
+    r3e_float32 session_best_lap_sector_times[3];
 
     // Time delta between the player and the car placed in front (-1.0 = N/A)
     // Units: Seconds
@@ -458,6 +564,31 @@ typedef struct
 
     // The current state of various parts of the player's car
     r3e_car_damage car_damage;
+	
+	// Slot ID for the currently active car
+	r3e_int32 slot_id;
+
+	// Amount of dirt built up per tyre
+	// Range: 0.0 - 1.0
+	r3e_tyre_dirt tyre_dirt;
+
+	// -1 = no data
+	//  0 = not active
+	//  1 = active
+	r3e_int32 pit_limiter;
+
+	// Wheel speed
+	// Unit: Radians per second (rad/s)
+	r3e_wheel_speed wheel_speed;
+
+	// Info about track and layout
+	r3e_track_info track_info;
+	
+	// Pust to pass data
+	r3e_push_to_pass push_to_pass;
+
+	// Contains name and vehicle info for all drivers in place order
+	r3e_driver_data_1 all_drivers_data_1[128];
 } r3e_shared;
 
 #pragma pack(pop)
