@@ -303,15 +303,6 @@ typedef struct
 
 typedef struct
 {
-    r3e_int32 available;
-    r3e_int32 engaged;
-    r3e_int32 amount_left;
-    r3e_float32 engaged_time_left;
-    r3e_float32 wait_time_left;
-} r3e_push_to_pass;
-
-typedef struct
-{
     r3e_u8char name[64];
     r3e_int32 car_number;
     r3e_int32 class_id;
@@ -583,9 +574,6 @@ typedef struct
 
     // Info about track and layout
     r3e_track_info track_info;
-    
-    // Pust to pass data
-    r3e_push_to_pass push_to_pass;
 
     // Contains name and vehicle info for all drivers in place order
     r3e_driver_data_1 all_drivers_data_1[128];
