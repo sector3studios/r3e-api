@@ -5,7 +5,7 @@
 typedef int32_t r3e_int32;
 typedef float r3e_float32;
 typedef double r3e_float64;
-typedef uint8_t r3e_u8char;
+typedef uint8_t r3e_u8char; // UTF-8 code unit
 
 #define R3E_SHARED_MEMORY_NAME "$Race$"
 
