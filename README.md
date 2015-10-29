@@ -7,6 +7,9 @@ This is a small sample application showing how to use the shared memory API for
 The sample will poll for RRRE.exe for ten minutes, and if/when it finds the
 application it will print some of the live data for another ten minutes.
 
+You'll find a JSON file with data lookup for the various car, track and livery
+IDs in the [r3e-spectator-overlay][data] repository.
+
 
 ## Prerequisites
 
@@ -26,3 +29,4 @@ See [LICENSE](LICENSE).
 
 [r3e]: http://game.raceroom.com/
 [vs2013]: https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx
+[data]: https://github.com/sector3studios/r3e-spectator-overlay/blob/master/r3e-data.json
