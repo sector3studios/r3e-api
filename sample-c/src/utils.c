@@ -17,14 +17,14 @@ BOOL is_process_running(const TCHAR* name)
 	{
 		if (Process32First(snapshot, &entry))
 		{
-			while (Process32Next(snapshot, &entry))
+			do
 			{
 				if (_tcscmp(entry.szExeFile, name) == 0)
 				{
 					result = TRUE;
 					break;
 				}
-			}
+			} while (Process32Next(snapshot, &entry));
 		}
 		CloseHandle(snapshot);
 	}
