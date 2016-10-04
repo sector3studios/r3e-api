@@ -5,6 +5,7 @@
 
 BOOL is_process_running(const TCHAR* name)
 {
+	BOOL result = FALSE;
     HANDLE snapshot = NULL;
     PROCESSENTRY32 entry;
 
@@ -12,16 +13,23 @@ BOOL is_process_running(const TCHAR* name)
     entry.dwSize = sizeof(PROCESSENTRY32);
 
     snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-    if (Process32First(snapshot, &entry))
-    {
-        while (Process32Next(snapshot, &entry))
-        {
-            if (_tcscmp(entry.szExeFile, name) == 0)
-                return TRUE;
-        }
-    }
+	if (snapshot != INVALID_HANDLE_VALUE)
+	{
+		if (Process32First(snapshot, &entry))
+		{
+			do
+			{
+				if (_tcscmp(entry.szExeFile, name) == 0)
+				{
+					result = TRUE;
+					break;
+				}
+			} while (Process32Next(snapshot, &entry));
+		}
+		CloseHandle(snapshot);
+	}
 
-    return FALSE;
+    return result;
 }
 
 BOOL is_r3e_running()
