@@ -296,11 +296,10 @@ namespace R3E
             public T Sector3;
         }
 
-        [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Ansi)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         internal struct DriverInfo
         {
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
-            public String Name;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
             public Int32 CarNumber;
             public Int32 ClassId;
             public Int32 ModelId;
@@ -337,7 +336,7 @@ namespace R3E
             public Int32 TireType;
         }
 
-        [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet=CharSet.Ansi)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         internal struct Shared
         {
             //////////////////////////////////////////////////////////////////////////
@@ -363,10 +362,8 @@ namespace R3E
             // Event And Session
             //////////////////////////////////////////////////////////////////////////
 
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
-            public String TrackName;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
-            public String LayoutName;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
 
             public Int32 TrackId;
             public Int32 LayoutId;
@@ -492,8 +489,7 @@ namespace R3E
             //////////////////////////////////////////////////////////////////////////
 
             public DriverInfo VehicleInfo;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
-            public String PlayerName;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
 
             //////////////////////////////////////////////////////////////////////////
             // Vehicle State
