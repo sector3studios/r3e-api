@@ -300,6 +300,7 @@ namespace R3E
         internal struct DriverInfo
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
+            public byte[] Name; // UTF-8
             public Int32 CarNumber;
             public Int32 ClassId;
             public Int32 ModelId;
@@ -363,7 +364,9 @@ namespace R3E
             //////////////////////////////////////////////////////////////////////////
 
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
+            public byte[] TrackName; // UTF-8
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
+            public byte[] LayoutName; // UTF-8
 
             public Int32 TrackId;
             public Int32 LayoutId;
@@ -490,6 +493,7 @@ namespace R3E
 
             public DriverInfo VehicleInfo;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
+            public byte[] PlayerName; // UTF-8
 
             //////////////////////////////////////////////////////////////////////////
             // Vehicle State
