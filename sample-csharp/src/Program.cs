@@ -110,7 +110,6 @@ namespace R3E
         {
             if (Read())
             {
-                Console.WriteLine("Name: {0}", System.Text.Encoding.UTF8.GetString(_data.PlayerName));
 
                 if (_data.Gear >= -1)
                 {
