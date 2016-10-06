@@ -7,10 +7,16 @@ namespace R3E
     {
         public const string SharedMemoryName = "$R3E";
 
-        enum Version
+        enum VersionMajor
         {
-	        // Version number to test against
-	        R3E_MEMORY_VERSION = 1
+            // Major version number to test against
+            R3E_VERSION_MAJOR = 1
+        };
+
+        enum VersionMinor
+        {
+            // Minor version number to test against
+            R3E_VERSION_MINOR = 1
         };
 
         enum Session
@@ -83,25 +89,25 @@ namespace R3E
 
         enum FinishStatus
         {
-	        // N/A
+            // N/A
             Unavailable = -1,
 
-	        // Still on track, not finished
+            // Still on track, not finished
             None = 0,
 
-	        // Finished session normally
+            // Finished session normally
             Finished = 1,
 
-	        // Did not finish
+            // Did not finish
             DNF = 2,
 
-	        // Did not qualify
+            // Did not qualify
             DNQ = 3,
 
-	        // Did not start
+            // Did not start
             DNS = 4,
 
-	        // Disqualified
+            // Disqualified
             DQ = 5,
         };
 
@@ -264,17 +270,17 @@ namespace R3E
         internal struct DRS
         {
             // If DRS is equipped and allowed
-	        // 0 = No, 1 = Yes, -1 = N/A
+            // 0 = No, 1 = Yes, -1 = N/A
             public Int32 Equipped;
             // Got DRS activation left
-	        // 0 = No, 1 = Yes, -1 = N/A
+            // 0 = No, 1 = Yes, -1 = N/A
             public Int32 Available;
             // Number of DRS activations left this lap
-	        // Note: In sessions with 'endless' amount of drs activations per lap this value starts at int32::max
-	        // -1 = N/A
+            // Note: In sessions with 'endless' amount of drs activations per lap this value starts at int32::max
+            // -1 = N/A
             public Int32 NumActivationsLeft;
             // DRS engaged
-	        // 0 = No, 1 = Yes, -1 = N/A
+            // 0 = No, 1 = Yes, -1 = N/A
             public Int32 Engaged;
         }
 
@@ -343,7 +349,10 @@ namespace R3E
             //////////////////////////////////////////////////////////////////////////
             // Version
             //////////////////////////////////////////////////////////////////////////
-            public Int32 Version;
+            public Int32 VersionMajor;
+            public Int32 VersionMinor;
+            public Int32 AllDriversOffset; // Offset to NumCars variable
+            public Int32 DriverDataSize; // Size of DriverData
 
             //////////////////////////////////////////////////////////////////////////
             // Game State
@@ -440,7 +449,7 @@ namespace R3E
             // Current position (1 = first place)
             public Int32 Position;
 
-             // Note: See the R3E.Constant.FinishStatus enum
+                // Note: See the R3E.Constant.FinishStatus enum
             public Int32 FinishStatus;
 
             // Total number of cut track warnings (-1 = N/A)
@@ -613,7 +622,7 @@ namespace R3E
 
             // Contains name and basic vehicle info for all drivers in place order
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 128)]
-	        public DriverData[] DriverData;
+            public DriverData[] DriverData;
         }
     }
 }
