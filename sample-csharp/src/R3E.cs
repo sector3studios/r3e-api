@@ -87,6 +87,18 @@ namespace R3E
             Completed = 4,
         };
 
+        enum PitStopStatus
+        {
+            // No mandatory pitstops
+            Unavailable = -1,
+
+            // Mandatory pitstop not served yet
+            Unserved = 0,
+
+            // Mandatory pitstop served
+            Served = 1,
+        };
+
         enum FinishStatus
         {
             // N/A
@@ -335,6 +347,7 @@ namespace R3E
             public Sectors<Single> SectorTimeBestSelf;
             public Single TimeDeltaFront;
             public Single TimeDeltaBehind;
+            public Int32 PitStopStatus;
             public Int32 InPitlane;
             public Int32 NumPitstops;
             public CutTrackPenalties Penalties;
