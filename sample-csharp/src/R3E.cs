@@ -347,6 +347,7 @@ namespace R3E
             public Sectors<Single> SectorTimeBestSelf;
             public Single TimeDeltaFront;
             public Single TimeDeltaBehind;
+            // Note: See the R3E.Constant.PitStopStatus enum
             public Int32 PitStopStatus;
             public Int32 InPitlane;
             public Int32 NumPitstops;
