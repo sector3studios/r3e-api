@@ -13,18 +13,18 @@ namespace R3E
     {
         private bool Mapped 
         {
-            get { return (_file != null && _view != null); }
+            get { return (_file != null); }
         }
 
+        private Shared _data;
         private MemoryMappedFile _file;
-        private MemoryMappedViewAccessor _view;
+        private byte[] _buffer;
 
         private readonly TimeSpan _timeAlive = TimeSpan.FromMinutes(10);
         private readonly TimeSpan _timeInterval = TimeSpan.FromMilliseconds(100);
 
         public void Dispose()
         {
-            _view.Dispose();
             _file.Dispose();
         }
 
@@ -60,6 +60,8 @@ namespace R3E
                     {
                         Console.WriteLine("Memory mapped successfully");
                         timeReset = DateTime.UtcNow;
+
+                        _buffer = new Byte[Marshal.SizeOf(typeof(Shared))];
                     }
                 }
 
@@ -77,7 +79,6 @@ namespace R3E
             try
             {
                 _file = MemoryMappedFile.OpenExisting(Constant.SharedMemoryName);
-                _view = _file.CreateViewAccessor(0, Marshal.SizeOf(typeof(Shared)));
                 return true;
             }
             catch(FileNotFoundException)
@@ -86,23 +87,45 @@ namespace R3E
             }
         }
 
+        private bool Read()
+        {
+            try
+            {
+                var _view = _file.CreateViewStream();
+                BinaryReader _stream = new BinaryReader(_view);
+                _buffer = _stream.ReadBytes(Marshal.SizeOf(typeof(Shared)));
+                GCHandle _handle = GCHandle.Alloc(_buffer, GCHandleType.Pinned);
+                _data = (Shared)Marshal.PtrToStructure(_handle.AddrOfPinnedObject(), typeof(Shared));
+                _handle.Free();
+
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+        }
+
         private void Print()
         {
-            Shared data;
-            _view.Read(0, out data);
+            if (Read())
+            {
+                Console.WriteLine("Name: {0}", System.Text.Encoding.UTF8.GetString(_data.PlayerName).TrimEnd('\0'));
 
-	        if(data.Gear >= -1)
-	        {
-				Console.WriteLine("Gear: {0}", data.Gear);
-	        }
+                if (_data.Gear >= -1)
+                {
+                    Console.WriteLine("Gear: {0}", _data.Gear);
+                }
 
-	        if(data.EngineRps > -1.0f)
-	        {
-				Console.WriteLine("RPM: {0}", Utilities.RpsToRpm(data.EngineRps));
-		        Console.WriteLine("Speed: {0}", Utilities.MpsToKph(data.CarSpeed));
-	        }
+                if (_data.EngineRps > -1.0f)
+                {
+                    Console.WriteLine("RPM: {0}", Utilities.RpsToRpm(_data.EngineRps));
+                    Console.WriteLine("Speed: {0}", Utilities.MpsToKph(_data.CarSpeed));
+                }
 
-            Console.WriteLine("");
+
+                Console.WriteLine("");
+            }
         }
     }
 
