@@ -16,7 +16,7 @@ namespace R3E
         enum VersionMinor
         {
             // Minor version number to test against
-            R3E_VERSION_MINOR = 1
+            R3E_VERSION_MINOR = 3
         };
 
         enum Session
@@ -240,6 +240,31 @@ namespace R3E
             //  0 = not active
             //  1 = active
             public Int32 Black;
+        }
+		
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        internal struct ExtendedFlags
+        {
+            // Whether green flag is currently active
+            // -1 = no data
+            //  0 = not active
+            //  1 = active
+            public Int32 Green;
+
+            // Whether checkered flag is currently active
+            // -1 = no data
+            //  0 = not active
+            //  1 = active
+            public Int32 Checkered;
+
+            // Whether black and white flag is currently active and reason
+            // -1 = no data
+            //  0 = not active
+            //  1 = blue flag 1st warnings
+            //  2 = blue flag 2nd warnings
+            //  3 = wrong way
+            //  4 = cutting track
+            public Int32 BlackAndWhite;			
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -626,6 +651,23 @@ namespace R3E
             // The current state of various parts of the car
             // Note: Not valid for AI or remote players
             public CarDamage CarDamage;
+
+            //////////////////////////////////////////////////////////////////////////
+            // Additional Info
+            //////////////////////////////////////////////////////////////////////////
+
+            // The current state of each type of extended flag
+            public ExtendedFlags ExtendedFlags;
+
+            // Yellow flag for each sector
+            // -1 = no data
+            //  0 = not active
+            //  1 = active
+            public Sectors<Int32> SectorYellow;
+
+            // Distance into track for closest yellow, -1.0 if no yellow flag exists
+            // Unit: Meters (m)
+            public Single ClosestYellowDistanceIntoTrack;
 
             //////////////////////////////////////////////////////////////////////////
             // Driver Info

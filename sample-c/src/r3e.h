@@ -18,7 +18,7 @@ enum
 enum
 {
     // Minor version number to test against
-    R3E_VERSION_MINOR = 1
+    R3E_VERSION_MINOR = 3
 };
 
 enum
@@ -249,6 +249,30 @@ typedef struct
     //  1 = active
     r3e_int32 black;
 } r3e_flags;
+
+typedef struct
+{
+    // Whether green flag is currently active
+    // -1 = no data
+    //  0 = not active
+    //  1 = active
+    r3e_int32 green;
+
+    // Whether checkered flag is currently active
+    // -1 = no data
+    //  0 = not active
+    //  1 = active
+    r3e_int32 checkered;
+
+    // Whether black and white flag is currently active and reason
+    // -1 = no data
+    //  0 = not active
+    //  1 = blue flag 1st warning
+    //  2 = blue flag 2nd warning
+    //  3 = wrong way
+    //  4 = cutting track
+    r3e_int32 black_and_white;
+} r3e_flags_extended;
 
 typedef struct
 {
@@ -601,9 +625,23 @@ typedef struct
     r3e_car_damage car_damage;
 
     //////////////////////////////////////////////////////////////////////////
+    // Additional Info
+    //////////////////////////////////////////////////////////////////////////
+
+    // The current state of each type of extended flag
+    r3e_flags_extended flags_extended;
+
+    // Yellow flag for each sector; -1 = no data, 0 = not active, 1 = active
+    r3e_int32 sector_yellow[3];
+
+    // Distance into track for closest yellow, -1.0 if no yellow flag exists
+    // Unit: Meters (m)
+    r3e_float32 closest_yellow_distance_into_track;
+
+    //////////////////////////////////////////////////////////////////////////
     // Driver info
     //////////////////////////////////////////////////////////////////////////
-	
+
     // Number of cars (including the player) in the race
     r3e_int32 num_cars;
 
