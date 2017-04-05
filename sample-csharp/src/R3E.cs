@@ -16,7 +16,7 @@ namespace R3E
         enum VersionMinor
         {
             // Minor version number to test against
-            R3E_VERSION_MINOR = 3
+            R3E_VERSION_MINOR = 5
         };
 
         enum Session
@@ -123,6 +123,19 @@ namespace R3E
             DQ = 5,
         };
 
+        enum SessionLengthFormat
+        {
+            // N/A
+            Unavailable = -1,
+
+            TimeBased = 0,
+
+            LapBased = 1,
+
+            // Time and lap based session means there will be an extra lap after the time has run out
+            TimeAndLapBased = 2
+        };
+
         enum TireType
         {
             Unavailable = -1,
@@ -225,14 +238,12 @@ namespace R3E
             // -1 = no data
             //  0 = not active
             //  1 = active
-            // Note: Uses legacy code and isn't really supported at the moment. Use at your own risk.
             public Int32 Yellow;
 
             // Whether blue flag is currently active
             // -1 = no data
             //  0 = not active
             //  1 = active
-            // Note: Uses legacy code and isn't really supported at the moment. Use at your own risk.
             public Int32 Blue;
 
             // Whether black flag is currently active
@@ -241,7 +252,7 @@ namespace R3E
             //  1 = active
             public Int32 Black;
         }
-		
+
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         internal struct ExtendedFlags
         {
@@ -264,7 +275,35 @@ namespace R3E
             //  2 = blue flag 2nd warnings
             //  3 = wrong way
             //  4 = cutting track
-            public Int32 BlackAndWhite;			
+            public Int32 BlackAndWhite;
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        internal struct ExtendedFlags2
+        {
+            // Whether white flag is currently active
+            // -1 = no data
+            //  0 = not active
+            //  1 = active
+            public Int32 White;
+
+            // Whether yellow flag was caused by current slot
+            // -1 = no data
+            //  0 = didn't cause it
+            //  1 = caused it
+            public Int32 YellowCausedIt;
+
+            // Whether overtake of car in front by current slot is allowed under yellow flag
+            // -1 = no data
+            //  0 = not allowed
+            //  1 = allowed
+            public Int32 YellowOvertake;
+
+            // Whether you have gained positions illegaly under yellow flag to give back
+            // -1 = no data
+            //  0 = no positions gained
+            //  n = number of positions gained
+            public Int32 YellowPositionsGained;
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -513,7 +552,7 @@ namespace R3E
             // The current best lap time for the leader of the player's class in the current session (-1.0 = N/A)
             public Single LapTimeBestLeaderClass;
             // Sector times of fastest lap by anyone in session
-	        // Unit: Seconds (-1.0 = N/A)
+            // Unit: Seconds (-1.0 = N/A)
             public Sectors<Single> SectorTimesSessionBestLap;
             // Unit: Seconds (-1.0 = none)
             public Single LapTimeBestSelf;
@@ -668,6 +707,13 @@ namespace R3E
             // Distance into track for closest yellow, -1.0 if no yellow flag exists
             // Unit: Meters (m)
             public Single ClosestYellowDistanceIntoTrack;
+
+            // Additional flag info
+            public ExtendedFlags2 ExtendedFlags2;
+
+            // If the session is time based, lap based or time based with an extra lap at the end
+            // Note: See the R3E.Constant.SessionLengthFormat enum
+            public Int32 SessionLengthFormat;
 
             //////////////////////////////////////////////////////////////////////////
             // Driver Info

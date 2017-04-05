@@ -18,7 +18,7 @@ enum
 enum
 {
     // Minor version number to test against
-    R3E_VERSION_MINOR = 3
+    R3E_VERSION_MINOR = 5
 };
 
 enum
@@ -154,6 +154,19 @@ typedef enum
     R3E_FINISH_STATUS_DQ = 5,
 } r3e_finish_status;
 
+typedef enum
+{
+    // N/A
+    R3E_SESSION_LENGTH_UNAVAILABLE = -1,
+
+    R3E_SESSION_LENGTH_TIME_BASED = 0,
+
+    R3E_SESSION_LENGTH_LAP_BASED = 1,
+
+    // Time and lap based session means there will be an extra lap after the time has run out
+    R3E_SESSION_LENGTH_TIME_AND_LAP_BASED = 2,
+} r3e_session_length_format;
+
 // Make sure everything is tightly packed, to prevent the compiler from adding any hidden padding
 #pragma pack(push, 1)
 
@@ -233,14 +246,12 @@ typedef struct
     // -1 = no data
     //  0 = not active
     //  1 = active
-    // Note: Uses legacy code and isn't really supported at the moment. Use at your own risk.
     r3e_int32 yellow;
 
     // Whether blue flag is currently active
     // -1 = no data
     //  0 = not active
     //  1 = active
-    // Note: Uses legacy code and isn't really supported at the moment. Use at your own risk.
     r3e_int32 blue;
 
     // Whether black flag is currently active
@@ -273,6 +284,33 @@ typedef struct
     //  4 = cutting track
     r3e_int32 black_and_white;
 } r3e_flags_extended;
+
+typedef struct
+{
+    // Whether white flag is currently active
+    // -1 = no data
+    //  0 = not active
+    //  1 = active
+    r3e_int32 white;
+
+    // Whether yellow flag was caused by current slot
+    // -1 = no data
+    //  0 = didn't cause it
+    //  1 = caused it
+    r3e_int32 yellowCausedIt;
+
+    // Whether overtake of car in front by current slot is allowed under yellow flag
+    // -1 = no data
+    //  0 = not allowed
+    //  1 = allowed
+    r3e_int32 yellowOvertake;
+
+    // Whether you have gained positions illegaly under yellow flag to give back
+    // -1 = no data
+    //  0 = no positions gained
+    //  n = number of positions gained
+    r3e_int32 yellowPositionsGained;
+} r3e_flags_extended_2;
 
 typedef struct
 {
@@ -590,7 +628,7 @@ typedef struct
     //////////////////////////////////////////////////////////////////////////
     // Tires
     //////////////////////////////////////////////////////////////////////////
-	
+
     // Which type of tires the car has (option, prime, etc.)
     // Note: See the r3e_tire_type enum
     r3e_int32 tire_type;
@@ -637,6 +675,12 @@ typedef struct
     // Distance into track for closest yellow, -1.0 if no yellow flag exists
     // Unit: Meters (m)
     r3e_float32 closest_yellow_distance_into_track;
+
+    // Additional flag info
+    r3e_flags_extended_2 flags_extended_2;
+
+    // If the session is time based, lap based or time based with an extra lap at the end
+    r3e_session_length_format session_length_format;
 
     //////////////////////////////////////////////////////////////////////////
     // Driver info
