@@ -18,7 +18,7 @@ enum
 enum
 {
     // Minor version number to test against
-    R3E_VERSION_MINOR = 5
+    R3E_VERSION_MINOR = 7
 };
 
 enum
@@ -32,6 +32,7 @@ typedef enum
     R3E_SESSION_PRACTICE = 0,
     R3E_SESSION_QUALIFY = 1,
     R3E_SESSION_RACE = 2,
+    R3E_SESSION_WARMUP = 3,
 } r3e_session;
 
 typedef enum
@@ -100,6 +101,16 @@ typedef enum
     R3E_TIRE_TYPE_OPTION = 0,
     R3E_TIRE_TYPE_PRIME = 1,
 } r3e_tire_type;
+
+typedef enum
+{
+    R3E_TIRE_SUBTYPE_UNAVAILABLE = -1,
+    R3E_TIRE_SUBTYPE_PRIMARY = 0,
+    R3E_TIRE_SUBTYPE_ALTERNATE = 1,
+    R3E_TIRE_SUBTYPE_SOFT = 2,
+    R3E_TIRE_SUBTYPE_MEDIUM = 3,
+    R3E_TIRE_SUBTYPE_HARD = 4,
+} r3e_tire_subtype;
 
 typedef enum
 {
@@ -397,7 +408,10 @@ typedef struct
     r3e_int32 num_pitstops;
     r3e_cut_track_penalties penalties;
     r3e_float32 car_speed;
-    r3e_int32 tire_type;
+    r3e_int32 tire_type_front;
+    r3e_int32 tire_type_rear;
+    r3e_int32 tire_subtype_front;
+    r3e_int32 tire_subtype_rear;
 } r3e_driver_data;
 
 typedef struct
@@ -630,7 +644,7 @@ typedef struct
     //////////////////////////////////////////////////////////////////////////
 
     // Which type of tires the car has (option, prime, etc.)
-    // Note: See the r3e_tire_type enum
+    // Note: See the r3e_tire_type enum, deprecated - use the values further down instead
     r3e_int32 tire_type;
     // Rotation speed
     // Uint: Radians per second
@@ -653,6 +667,14 @@ typedef struct
     // Unit: Celsius (C)
     // Note: Not valid for AI or remote players
     r3e_float32 tire_temps[R3E_TIRE_INDEX_MAX][R3E_TIRE_TEMP_INDEX_MAX];
+    // Which type of tires the car has (option, prime, etc.)
+    // Note: See the r3e_tire_type enum
+    r3e_int32 tire_type_front;
+    r3e_int32 tire_type_rear;
+    // Which subtype of tires the car has
+    // Note: See the r3e_tire_subtype enum
+    r3e_int32 tire_subtype_front;
+    r3e_int32 tire_subtype_rear;
 
     //////////////////////////////////////////////////////////////////////////
     // Damage
