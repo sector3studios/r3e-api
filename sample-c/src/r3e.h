@@ -975,7 +975,10 @@ typedef struct
     r3e_float32 tire_unused3;
     r3e_float32 tire_unused4;
     r3e_float32 tire_unused5[R3E_TIRE_INDEX_MAX];
-    r3e_float32 tire_unused6[R3E_TIRE_INDEX_MAX];
+
+    // Tire load (N)
+    // -1.0 = N/A
+    r3e_float32 tire_load[R3E_TIRE_INDEX_MAX];
 
     //////////////////////////////////////////////////////////////////////////
     // Damage
