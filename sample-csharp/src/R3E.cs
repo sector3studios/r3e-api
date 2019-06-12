@@ -1042,7 +1042,10 @@ namespace R3E
             public Single TireUnused3;
             public Single TireUnused4;
             public TireData<Single> TireUnused5;
-            public TireData<Single> TireUnused6;
+
+            // Tire load (N)
+            // -1.0 = N/A
+            public TireData<Single> TireLoad;
 
             //////////////////////////////////////////////////////////////////////////
             // Damage
