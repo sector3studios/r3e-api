@@ -18,7 +18,7 @@ enum
 enum
 {
     // Minor version number to test against
-    R3E_VERSION_MINOR = 6
+    R3E_VERSION_MINOR = 7
 };
 
 enum
@@ -320,11 +320,13 @@ typedef struct
     r3e_float64 front_wing_height;
     r3e_float64 front_roll_angle;
     r3e_float64 rear_roll_angle;
+    r3e_float64 third_spring_suspension_deflection_front;
+    r3e_float64 third_spring_suspension_velocity_front;
+    r3e_float64 third_spring_suspension_deflection_rear;
+    r3e_float64 third_spring_suspension_velocity_rear;
 
     // Reserved data
     r3e_float64 unused1;
-    r3e_float64 unused2;
-    r3e_vec3_f64 unused3;
 } r3e_playerdata;
 
 typedef struct
@@ -502,9 +504,9 @@ typedef struct
     r3e_int32 slot_id;
     r3e_int32 class_performance_index;
     r3e_int32 engine_type;
+    r3e_int32 incident_points;
 
     // Reserved data
-    r3e_int32 unused1;
     r3e_int32 unused2;
 } r3e_driver_info;
 
