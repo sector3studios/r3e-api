@@ -299,11 +299,13 @@ namespace R3E
             public Double FrontWingHeight;
             public Double FrontRollAngle;
             public Double RearRollAngle;
+            public Double ThirdSpringSuspensionDeflectionFront;
+	        public Double ThirdSpringSuspensionVelocityFront;
+	        public Double ThirdSpringSuspensionDeflectionRear;
+	        public Double ThirdSpringSuspensionVelocityRear;
 
             // Reserved data
             public Double Unused1;
-            public Double Unused2;
-            public Vector3<Double> Unused3;
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -539,7 +541,7 @@ namespace R3E
             // Note: See the EngineType enum
             public Int32 EngineType;
             public Int32 IncidentPoints;
-		
+			
             public Int32 Unused2;
         }
 
