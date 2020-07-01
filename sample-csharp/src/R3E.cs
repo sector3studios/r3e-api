@@ -16,7 +16,7 @@ namespace R3E
         enum VersionMinor
         {
             // Minor version number to test against
-            R3E_VERSION_MINOR = 6
+            R3E_VERSION_MINOR = 7
         };
 
         enum Session
@@ -538,8 +538,8 @@ namespace R3E
             public Int32 ClassPerformanceIndex;
             // Note: See the EngineType enum
             public Int32 EngineType;
-
-            public Int32 Unused1;
+            public Int32 IncidentPoints;
+		
             public Int32 Unused2;
         }
 
