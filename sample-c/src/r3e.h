@@ -18,7 +18,7 @@ enum
 enum
 {
     // Minor version number to test against
-    R3E_VERSION_MINOR = 7
+    R3E_VERSION_MINOR = 9
 };
 
 enum
@@ -504,9 +504,9 @@ typedef struct
     r3e_int32 slot_id;
     r3e_int32 class_performance_index;
     r3e_int32 engine_type;
-    r3e_int32 incident_points;
 
     // Reserved data
+    r3e_int32 unused1;
     r3e_int32 unused2;
 } r3e_driver_info;
 
@@ -690,8 +690,10 @@ typedef struct
     r3e_float32 session_time_duration;
     r3e_float32 session_time_remaining;
 
+    // Server max incident points, -1 = N/A
+    r3e_int32 max_incident_points;
+
     // Reserved data
-    r3e_int32 event_unused1;
     r3e_float32 event_unused2;
 
     //////////////////////////////////////////////////////////////////////////
@@ -730,9 +732,9 @@ typedef struct
     // Number of pitstops the current vehicle has performed (-1 = N/A)
     r3e_int32 num_pitstops;
 
-    // Reserved data
-    r3e_int32 pit_unused1;
-    r3e_float32 pit_unused2;
+    // Pitstop with min duration (-1.0 = N/A, else seconds)
+    r3e_float32 pit_min_duration_total;
+    r3e_float32 pit_min_duration_left;
 
     //////////////////////////////////////////////////////////////////////////
     // Scoring & Timings
@@ -804,10 +806,11 @@ typedef struct
     r3e_float32 best_individual_sector_time_self[3];
     r3e_float32 best_individual_sector_time_leader[3];
     r3e_float32 best_individual_sector_time_leader_class[3];
+    // Incident points (-1 = N/A)
+    r3e_int32 incident_points;
 
     // Reserved data
     r3e_int32 score_unused1;
-    r3e_int32 score_unused2;
     r3e_float32 score_unused3;
     r3e_float32 score_unused4;
 
@@ -912,12 +915,16 @@ typedef struct
     // Note: Not valid for AI or remote players
     r3e_float32 brake_bias;
 
+    // DRS activations available in total (-1 = N/A or endless), placed outside of drs struct to keep backwards compatibility
+    r3e_int32 drs_numActivationsTotal;
+
+    // PTP activations available in total (-1 = N/A, or there's no restriction per lap, or endless), placed outside of ptp struct to keep backwards compatibility
+    r3e_int32 ptp_numActivationsTotal;
+
     // Reserved data
-    r3e_int32 vehicle_unused1;
-    r3e_int32 vehicle_unused2;
-    r3e_float32 vehicle_unused3;
-    r3e_float32 vehicle_unused4;
-    r3e_ori_f32 vehicle_unused5;
+    r3e_float32 vehicle_unused1;
+    r3e_float32 vehicle_unused2;
+    r3e_ori_f32 vehicle_unused3;
 
     //////////////////////////////////////////////////////////////////////////
     // Tires
