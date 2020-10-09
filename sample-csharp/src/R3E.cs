@@ -16,7 +16,7 @@ namespace R3E
         enum VersionMinor
         {
             // Minor version number to test against
-            R3E_VERSION_MINOR = 7
+            R3E_VERSION_MINOR = 9
         };
 
         enum Session
@@ -300,9 +300,9 @@ namespace R3E
             public Double FrontRollAngle;
             public Double RearRollAngle;
             public Double ThirdSpringSuspensionDeflectionFront;
-	        public Double ThirdSpringSuspensionVelocityFront;
-	        public Double ThirdSpringSuspensionDeflectionRear;
-	        public Double ThirdSpringSuspensionVelocityRear;
+            public Double ThirdSpringSuspensionVelocityFront;
+            public Double ThirdSpringSuspensionDeflectionRear;
+            public Double ThirdSpringSuspensionVelocityRear;
 
             // Reserved data
             public Double Unused1;
@@ -540,8 +540,8 @@ namespace R3E
             public Int32 ClassPerformanceIndex;
             // Note: See the EngineType enum
             public Int32 EngineType;
-            public Int32 IncidentPoints;
-			
+
+            public Int32 Unused1;
             public Int32 Unused2;
         }
 
@@ -753,8 +753,10 @@ namespace R3E
             public Single SessionTimeDuration;
             public Single SessionTimeRemaining;
 
+            // Server max incident points, -1 = N/A
+            public Int32 MaxIncidentPoints;
+
             // Reserved data
-            public Int32 EventUnused1;
             public Single EventUnused2;
 
             //////////////////////////////////////////////////////////////////////////
@@ -793,9 +795,8 @@ namespace R3E
             // Number of pitstops the current vehicle has performed (-1 = N/A)
             public Int32 NumPitstopsPerformed;
 
-            // Reserved data
-            public Int32 PitUnused1;
-            public Single PitUnused2;
+            public Single PitMinDurationTotal;
+            public Single PitMinDurationLeft;
 
             //////////////////////////////////////////////////////////////////////////
             // Scoring & Timings
@@ -863,12 +864,12 @@ namespace R3E
             public Sectors<Single> BestIndividualSectorTimeSelf;
             public Sectors<Single> BestIndividualSectorTimeLeader;
             public Sectors<Single> BestIndividualSectorTimeLeaderClass;
+            public Int32 IncidentPoints;
 
             // Reserved data
             public Int32 ScoreUnused1;
-            public Int32 ScoreUnused2;
+            public Single ScoreUnused2;
             public Single ScoreUnused3;
-            public Single ScoreUnused4;
 
             //////////////////////////////////////////////////////////////////////////
             // Vehicle information
@@ -975,12 +976,15 @@ namespace R3E
             // Note: Not valid for AI or remote players
             public Single BrakeBias;
 
+            // DRS activations available in total (-1 = N/A or endless)
+            public Int32 DrsNumActivationsTotal;
+            // PTP activations available in total (-1 = N/A, or there's no restriction per lap, or endless)
+            public Int32 PtpNumActivationsTotal;
+
             // Reserved data
-            public Int32 VehicleUnused1;
-            public Int32 VehicleUnused2;
-            public Single VehicleUnused3;
-            public Single VehicleUnused4;
-            Orientation<Single> VehicleUnused5;
+            public Single VehicleUnused1;
+            public Single VehicleUnused2;
+            Orientation<Single> VehicleUnused3;
 
             //////////////////////////////////////////////////////////////////////////
             // Tires
