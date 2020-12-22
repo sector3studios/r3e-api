@@ -978,12 +978,18 @@ typedef struct
     // Note: Not valid for AI or remote players
     r3e_float32 brake_pressure[R3E_TIRE_INDEX_MAX];
 
+    //////////////////////////////////////////////////////////////////////////
+    // Electronics
+    //////////////////////////////////////////////////////////////////////////
+	
+    // -1 = N/A
+    r3e_int32 traction_control_setting;
+    r3e_int32 engine_map_setting;
+    r3e_int32 engine_brake_setting;
+	
     // Reserved data
-    r3e_int32 tire_unused1;
-    r3e_int32 tire_unused2;
-    r3e_float32 tire_unused3;
-    r3e_float32 tire_unused4;
-    r3e_float32 tire_unused5[R3E_TIRE_INDEX_MAX];
+    r3e_float32 tire_unused1;
+    r3e_float32 tire_unused2[R3E_TIRE_INDEX_MAX];
 
     // Tire load (N)
     // -1.0 = N/A
