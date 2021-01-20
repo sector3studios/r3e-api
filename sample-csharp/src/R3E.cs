@@ -1043,11 +1043,12 @@ namespace R3E
             public TireData<Single> BrakePressure;
 
             // Reserved data
-            public Int32 TireUnused1;
-            public Int32 TireUnused2;
-            public Single TireUnused3;
-            public Single TireUnused4;
-            public TireData<Single> TireUnused5;
+            public Int32 TractionControlSetting;
+            public Int32 EngineMapSetting;
+            public Int32 EngineBrakeSetting;
+
+            public Single TireUnused1;
+            public TireData<Single> TireUnused2;
 
             // Tire load (N)
             // -1.0 = N/A
