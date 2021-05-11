@@ -16,7 +16,7 @@ namespace R3E
         enum VersionMinor
         {
             // Minor version number to test against
-            R3E_VERSION_MINOR = 9
+            R3E_VERSION_MINOR = 11
         };
 
         enum Session
@@ -93,8 +93,11 @@ namespace R3E
             // No mandatory pitstops
             Unavailable = -1,
 
-            // Mandatory pitstop not served yet
-            Unserved = 0,
+            // Mandatory pitstop for two tyres not served yet
+            UnservedTwoTyres = 0,
+
+            // Mandatory pitstop for four tyres not served yet
+            UnservedFourTyres = 0,
 
             // Mandatory pitstop served
             Served = 1,
@@ -642,12 +645,14 @@ namespace R3E
             // DisqualifyPenaltyIgnoredBlueFlag = 13,
             // DisqualifyPenaltyMax = 14
             public Int32 PenaltyReason;
+	
+            // -1 unavailable, 0 = ignition off, 1 = ignition on but not running, 2 = ignition on and running
+            public Int32 EngineState;
 
             // Reserved data
             public Int32 Unused1;
-            public Int32 Unused2;
+            public Single Unused2;
             public Single Unused3;
-            public Single Unused4;
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -789,7 +794,7 @@ namespace R3E
             public Single PitTotalDuration;
             public Single PitElapsedTime;
 
-            // Current vehicle pit action (-1 = N/A, 0 = None, 1 = Preparing, (combination of 2 = Penalty serve, 4 = Driver change, 8 = Refueling, 16 = Front tires, 32 = Rear tires, 64 = Front wing, 128 = Rear wing, 256 = Suspension))
+            // Current vehicle pit action (-1 = N/A, 0 = None, 1 = Preparing, (combination of 2 = Penalty serve, 4 = Driver change, 8 = Refueling, 16 = Front tires, 32 = Rear tires, 64 = Body, 128 = Front wing, 256 = Rear wing, 512 = Suspension))
             public Int32 PitAction;
 
             // Number of pitstops the current vehicle has performed (-1 = N/A)
@@ -866,10 +871,12 @@ namespace R3E
             public Sectors<Single> BestIndividualSectorTimeLeaderClass;
             public Int32 IncidentPoints;
 
+            // -1 = N/A, 0 = this and next lap valid, 1 = this lap invalid, 2 = this and next lap invalid
+            public Int32 LapValidState;
+
             // Reserved data
-            public Int32 ScoreUnused1;
+            public Single ScoreUnused1;
             public Single ScoreUnused2;
-            public Single ScoreUnused3;
 
             //////////////////////////////////////////////////////////////////////////
             // Vehicle information
@@ -1047,8 +1054,10 @@ namespace R3E
             public Int32 EngineMapSetting;
             public Int32 EngineBrakeSetting;
 
-            public Single TireUnused1;
-            public TireData<Single> TireUnused2;
+            // -1.0 = N/A, 0.0 -> 100.0 percent
+            public Single TractionControlPercent;
+
+            public TireData<Single> TireUnused1;
 
             // Tire load (N)
             // -1.0 = N/A
