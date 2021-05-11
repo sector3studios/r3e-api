@@ -18,7 +18,7 @@ enum
 enum
 {
     // Minor version number to test against
-    R3E_VERSION_MINOR = 9
+    R3E_VERSION_MINOR = 10
 };
 
 enum
@@ -597,12 +597,14 @@ typedef struct
     // DisqualifyPenaltyIgnoredBlueFlag = 13,
     // DisqualifyPenaltyMax = 14
     r3e_int32 penaltyReason;
+	
+    // -1 unavailable, 0 = ignition off, 1 = ignition on but not running, 2 = ignition on and running
+    r3e_int32 engineState;
 
     // Reserved data
     r3e_int32 unused1;
-    r3e_int32 unused2;
+    r3e_float32 unused2;
     r3e_float32 unused3;
-    r3e_float32 unused4;
 } r3e_driver_data;
 
 typedef struct
@@ -808,11 +810,13 @@ typedef struct
     r3e_float32 best_individual_sector_time_leader_class[3];
     // Incident points (-1 = N/A)
     r3e_int32 incident_points;
+	
+    // -1 = N/A, 0 = this and next lap valid, 1 = this lap invalid, 2 = this and next lap invalid
+    r3e_int32 lap_valid_state;
 
     // Reserved data
-    r3e_int32 score_unused1;
-    r3e_float32 score_unused3;
-    r3e_float32 score_unused4;
+    r3e_float32 score_unused1;
+    r3e_float32 score_unused2;
 
     //////////////////////////////////////////////////////////////////////////
     // Vehicle information
@@ -987,9 +991,11 @@ typedef struct
     r3e_int32 engine_map_setting;
     r3e_int32 engine_brake_setting;
 	
+    // -1.0 = N/A, 0.0 -> 100.0 percent
+    r3e_float32 traction_control_percent;
+	
     // Reserved data
-    r3e_float32 tire_unused1;
-    r3e_float32 tire_unused2[R3E_TIRE_INDEX_MAX];
+    r3e_float32 tire_unused1[R3E_TIRE_INDEX_MAX];
 
     // Tire load (N)
     // -1.0 = N/A
