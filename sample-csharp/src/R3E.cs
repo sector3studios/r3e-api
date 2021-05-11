@@ -16,7 +16,7 @@ namespace R3E
         enum VersionMinor
         {
             // Minor version number to test against
-            R3E_VERSION_MINOR = 11
+            R3E_VERSION_MINOR = 10
         };
 
         enum Session
