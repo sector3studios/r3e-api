@@ -18,7 +18,7 @@ enum
 enum
 {
     // Minor version number to test against
-    R3E_VERSION_MINOR = 10
+    R3E_VERSION_MINOR = 11
 };
 
 enum
@@ -143,11 +143,14 @@ typedef enum
     // No mandatory pitstops
     R3E_PITSTOP_STATUS_UNAVAILABLE = -1,
 
-    // Mandatory pitstop not served yet
-    R3E_PITSTOP_STATUS_UNSERVED = 0,
+    // Mandatory pitstop for two tyres not served yet
+    R3E_PITSTOP_STATUS_TWO_TYRES_UNSERVED = 0,
+
+    // Mandatory pitstop for four tyres not served yet
+    R3E_PITSTOP_STATUS_FOUR_TYRES_UNSERVED = 1,
 
     // Mandatory pitstop served
-    R3E_PITSTOP_STATUS_SERVED = 1,
+    R3E_PITSTOP_STATUS_SERVED = 2,
 } r3e_pitstop_status;
 
 typedef enum
