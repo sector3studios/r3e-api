@@ -16,7 +16,7 @@ namespace R3E
         enum VersionMinor
         {
             // Minor version number to test against
-            R3E_VERSION_MINOR = 10
+            R3E_VERSION_MINOR = 11
         };
 
         enum Session
@@ -97,10 +97,10 @@ namespace R3E
             UnservedTwoTyres = 0,
 
             // Mandatory pitstop for four tyres not served yet
-            UnservedFourTyres = 0,
+            UnservedFourTyres = 1,
 
             // Mandatory pitstop served
-            Served = 1,
+            Served = 2,
         };
 
         enum FinishStatus
