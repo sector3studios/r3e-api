@@ -183,6 +183,17 @@ namespace R3E
             Hard = 4
         };
 
+        enum MtrlType
+        {
+            Unavailable = -1,
+            None = 0,
+            Tarmac = 1,
+            Grass = 2,
+            Dirt = 3,
+            Gravel = 4,
+            Rumble = 5
+        };
+
         enum EngineType
         {
             COMBUSTION = 0,
@@ -1057,7 +1068,9 @@ namespace R3E
             // -1.0 = N/A, 0.0 -> 100.0 percent
             public Single TractionControlPercent;
 
-            public TireData<Single> TireUnused1;
+            // Which type of material under player car tires (tarmac, gravel, etc.)
+            // Note: See the R3E.Constant.MtrlType enum
+            public TireData<Int32> TireOnMtrl;
 
             // Tire load (N)
             // -1.0 = N/A
