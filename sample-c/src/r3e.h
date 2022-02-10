@@ -18,7 +18,7 @@ enum
 enum
 {
     // Minor version number to test against
-    R3E_VERSION_MINOR = 11
+    R3E_VERSION_MINOR = 12
 };
 
 enum
@@ -137,6 +137,17 @@ typedef enum
 	R3E_TIRE_SUBTYPE_MEDIUM = 3,
 	R3E_TIRE_SUBTYPE_HARD = 4,
 } r3e_tire_subtype;
+
+typedef enum
+{
+	R3E_MTRL_TYPE_UNAVAILABLE = -1,
+	R3E_MTRL_TYPE_NONE = 0,
+	R3E_MTRL_TYPE_TARMAC = 1,
+	R3E_MTRL_TYPE_GRASS = 2,
+	R3E_MTRL_TYPE_DIRT = 3,
+	R3E_MTRL_TYPE_GRAVEL = 4,
+	R3E_MTRL_TYPE_RUMBLE = 5,
+} r3e_mtrl_type;
 
 typedef enum
 {
@@ -731,7 +742,7 @@ typedef struct
     r3e_float32 pit_total_duration;
     r3e_float32 pit_elapsed_time;
 
-	// Current vehicle pit action (-1 = N/A, 0 = None, 1 = Preparing, (combination of 2 = Penalty serve, 4 = Driver change, 8 = Refueling, 16 = Front tires, 32 = Rear tires, 64 = Front wing, 128 = Rear wing, 256 = Suspension))
+	// Current vehicle pit action (-1 = N/A, 0 = None, 1 = Preparing, (combination of 2 = Penalty serve, 4 = Driver change, 8 = Refueling, 16 = Front tires, 32 = Rear tires, 64 = Body, 128 = Front wing, 256 = Rear wing, 512 = Suspension))
 	r3e_int32 pit_action;
 
     // Number of pitstops the current vehicle has performed (-1 = N/A)
@@ -997,8 +1008,8 @@ typedef struct
     // -1.0 = N/A, 0.0 -> 100.0 percent
     r3e_float32 traction_control_percent;
 	
-    // Reserved data
-    r3e_float32 tire_unused1[R3E_TIRE_INDEX_MAX];
+    // Material under player car tires, see the r3e_mtrl_type enum
+    r3e_int32 tire_on_mtrl[R3E_TIRE_INDEX_MAX];
 
     // Tire load (N)
     // -1.0 = N/A
