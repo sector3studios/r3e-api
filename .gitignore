@@ -9,3 +9,5 @@ obj/
 /sample-c/build/vs2015/sample-c.VC.VC.opendb
 /sample-c/build/vs2015/sample-c.VC.db
 .idea
+*.out
+*.exe
