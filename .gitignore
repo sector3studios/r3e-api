@@ -11,3 +11,4 @@ obj/
 .idea
 *.out
 *.exe
+cmake-build-debug/
