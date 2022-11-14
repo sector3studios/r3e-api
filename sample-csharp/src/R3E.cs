@@ -16,7 +16,7 @@ namespace R3E
         enum VersionMinor
         {
             // Minor version number to test against
-            R3E_VERSION_MINOR = 11
+            R3E_VERSION_MINOR = 13
         };
 
         enum Session
@@ -999,10 +999,16 @@ namespace R3E
             // PTP activations available in total (-1 = N/A, or there's no restriction per lap, or endless)
             public Int32 PtpNumActivationsTotal;
 
+            // Battery state of charge
+            // Range: 0.0 - 100.0 (-1.0 = N/A)
+            public Single BatterySoC;
+
+            // Brake water tank (-1.0 = N/A)
+            // Unit: Liters (l)
+            public Single WaterLeft;
+
             // Reserved data
-            public Single VehicleUnused1;
-            public Single VehicleUnused2;
-            Orientation<Single> VehicleUnused3;
+            Orientation<Single> VehicleUnused1;
 
             //////////////////////////////////////////////////////////////////////////
             // Tires
