@@ -18,7 +18,7 @@ enum
 enum
 {
     // Minor version number to test against
-    R3E_VERSION_MINOR = 12
+    R3E_VERSION_MINOR = 13
 };
 
 enum
@@ -939,10 +939,16 @@ typedef struct
     // PTP activations available in total (-1 = N/A, or there's no restriction per lap, or endless), placed outside of ptp struct to keep backwards compatibility
     r3e_int32 ptp_numActivationsTotal;
 
+    // Battery state of charge
+    // Range: 0.0 - 100.0 (-1.0 = N/A)
+    r3e_float32 battery_soc;
+
+    // Brake water tank (-1.0 = N/A)
+    // Unit: Liters (l)
+    r3e_float32 water_left;
+
     // Reserved data
-    r3e_float32 vehicle_unused1;
-    r3e_float32 vehicle_unused2;
-    r3e_ori_f32 vehicle_unused3;
+    r3e_ori_f32 vehicle_unused1;
 
     //////////////////////////////////////////////////////////////////////////
     // Tires
