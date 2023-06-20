@@ -18,7 +18,7 @@ enum
 enum
 {
     // Minor version number to test against
-    R3E_VERSION_MINOR = 13
+    R3E_VERSION_MINOR = 14
 };
 
 enum
@@ -518,10 +518,8 @@ typedef struct
     r3e_int32 slot_id;
     r3e_int32 class_performance_index;
     r3e_int32 engine_type;
-
-    // Reserved data
-    r3e_int32 unused1;
-    r3e_int32 unused2;
+    r3e_float32 car_width;
+    r3e_float32 car_length;
 } r3e_driver_info;
 
 typedef struct
@@ -615,10 +613,8 @@ typedef struct
     // -1 unavailable, 0 = ignition off, 1 = ignition on but not running, 2 = ignition on and running
     r3e_int32 engineState;
 
-    // Reserved data
-    r3e_int32 unused1;
-    r3e_float32 unused2;
-    r3e_float32 unused3;
+    // Orientation in Euler coordinates
+    r3e_vec3_f32 orientation;
 } r3e_driver_data;
 
 typedef struct
