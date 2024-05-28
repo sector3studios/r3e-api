@@ -16,7 +16,7 @@ namespace R3E
         enum VersionMinor
         {
             // Minor version number to test against
-            R3E_VERSION_MINOR = 14
+            R3E_VERSION_MINOR = 15
         };
 
         enum Session
@@ -1005,8 +1005,12 @@ namespace R3E
             // Unit: Liters (l)
             public Single WaterLeft;
 
+            // -1.0 = N/A
+            public Int32 AbsSetting;
+
             // Reserved data
-            Orientation<Single> VehicleUnused1;
+            public Single VehicleUnused1;
+            public Single VehicleUnused2;
 
             //////////////////////////////////////////////////////////////////////////
             // Tires
@@ -1064,7 +1068,7 @@ namespace R3E
             // Note: Not valid for AI or remote players
             public TireData<Single> BrakePressure;
 
-            // Reserved data
+            // -1.0 = N/A
             public Int32 TractionControlSetting;
             public Int32 EngineMapSetting;
             public Int32 EngineBrakeSetting;
