@@ -18,7 +18,7 @@ enum
 enum
 {
     // Minor version number to test against
-    R3E_VERSION_MINOR = 14
+    R3E_VERSION_MINOR = 15
 };
 
 enum
@@ -942,9 +942,13 @@ typedef struct
     // Brake water tank (-1.0 = N/A)
     // Unit: Liters (l)
     r3e_float32 water_left;
+	
+    // -1 = N/A
+    r3e_int32 abs_setting;
 
     // Reserved data
-    r3e_ori_f32 vehicle_unused1;
+    r3e_float32 vehicle_unused1;
+    r3e_float32 vehicle_unused2;
 
     //////////////////////////////////////////////////////////////////////////
     // Tires
