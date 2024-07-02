@@ -34,5 +34,5 @@ BOOL is_process_running(const TCHAR* name)
 
 BOOL is_r3e_running()
 {
-    return is_process_running(TEXT("RRRE.exe"));
+    return is_process_running(TEXT("RRRE.exe")) || is_process_running(TEXT("RRRE64.exe"));
 }

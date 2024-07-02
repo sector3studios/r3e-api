@@ -17,7 +17,7 @@ namespace R3E
 
         public static bool IsRrreRunning()
         {
-            return Process.GetProcessesByName("RRRE").Length > 0;
+            return Process.GetProcessesByName("RRRE").Length > 0 || Process.GetProcessesByName("RRRE64").Length > 0;
         }
     }
 }
