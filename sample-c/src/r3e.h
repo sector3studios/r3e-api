@@ -18,7 +18,7 @@ enum
 enum
 {
     // Minor version number to test against
-    R3E_VERSION_MINOR = 15
+    R3E_VERSION_MINOR = 16
 };
 
 enum
@@ -945,10 +945,12 @@ typedef struct
 	
     // -1 = N/A
     r3e_int32 abs_setting;
+	
+    // -1 = N/A, 0 = off, 1 = on, 2 = strobing
+    r3e_int32 headlights;
 
     // Reserved data
     r3e_float32 vehicle_unused1;
-    r3e_float32 vehicle_unused2;
 
     //////////////////////////////////////////////////////////////////////////
     // Tires
