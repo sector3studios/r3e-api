@@ -16,7 +16,7 @@ namespace R3E
         enum VersionMinor
         {
             // Minor version number to test against
-            R3E_VERSION_MINOR = 15
+            R3E_VERSION_MINOR = 16
         };
 
         enum Session
@@ -1008,9 +1008,11 @@ namespace R3E
             // -1.0 = N/A
             public Int32 AbsSetting;
 
+            // -1 = N/A, 0 = off, 1 = on, 2 = strobing
+            public Int32 HeadLights;
+
             // Reserved data
             public Single VehicleUnused1;
-            public Single VehicleUnused2;
 
             //////////////////////////////////////////////////////////////////////////
             // Tires
