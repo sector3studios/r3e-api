@@ -12,13 +12,13 @@ typedef uint8_t r3e_u8char; // UTF-8 code unit
 enum
 {
     // Major version number to test against
-    R3E_VERSION_MAJOR = 2
+    R3E_VERSION_MAJOR = 3
 };
 
 enum
 {
     // Minor version number to test against
-    R3E_VERSION_MINOR = 16
+    R3E_VERSION_MINOR = 1
 };
 
 enum
@@ -158,7 +158,7 @@ typedef enum
     R3E_PITSTOP_STATUS_TWO_TYRES_UNSERVED = 0,
 
     // Mandatory pitstop for four tyres not served yet
-    R3E_PITSTOP_STATUS_FOUR_TYRES_UNSERVED = 1,
+	R3E_PITSTOP_STATUS_FOUR_TYRES_UNSERVED = 1,
 
     // Mandatory pitstop served
     R3E_PITSTOP_STATUS_SERVED = 2,
@@ -340,7 +340,9 @@ typedef struct
     r3e_float64 third_spring_suspension_velocity_rear;
 
     // Reserved data
-    r3e_float64 unused1;
+	r3e_float64 unused1;
+	r3e_float64 unused2;
+	r3e_float64 unused3;
 } r3e_playerdata;
 
 typedef struct
@@ -442,11 +444,12 @@ typedef struct
 
 typedef struct
 {
-    r3e_int32 drive_through;
-    r3e_int32 stop_and_go;
-    r3e_int32 pit_stop;
-    r3e_int32 time_deduction;
-    r3e_int32 slow_down;
+	// -1.0 = none pending, otherwise penalty time dep on penalty type (drive-through active = 0.0, stop-and-go = time to stay, slow-down = time left to give back etc))
+	r3e_float32 drive_through;
+	r3e_float32 stop_and_go;
+	r3e_float32 pit_stop;
+	r3e_float32 time_deduction;
+	r3e_float32 slow_down;
 } r3e_cut_track_penalties;
 
 typedef struct
@@ -519,7 +522,10 @@ typedef struct
     r3e_int32 class_performance_index;
     r3e_int32 engine_type;
     r3e_float32 car_width;
-    r3e_float32 car_length;
+	r3e_float32 car_length;
+
+	// Reserved data
+	r3e_float32 unused1;
 } r3e_driver_info;
 
 typedef struct
@@ -528,7 +534,8 @@ typedef struct
     r3e_finish_status finish_status;
     r3e_int32 place;
     r3e_int32 place_class;
-    r3e_float32 lap_distance;
+	r3e_float32 lap_distance;
+	r3e_float32 lap_distance_fraction;
     r3e_vec3_f32 position;
     r3e_int32 track_sector;
     r3e_int32 completed_laps;
@@ -555,6 +562,9 @@ typedef struct
     r3e_int32 drs_state;
     r3e_int32 ptp_state;
 
+    // -1.0 unavailable, 0.0 - 1.0 tank factor
+	r3e_float32 virtual_energy;
+
     // -1 unavailable, DriveThrough = 0, StopAndGo = 1, Pitstop = 2, Time = 3, Slowdown = 4, Disqualify = 5,
     r3e_int32 penaltyType;
 
@@ -576,7 +586,8 @@ typedef struct
     // StopAndGoPenaltyCutTrack1st = 1,
     // StopAndGoPenaltyCutTrackMult = 2,
     // StopAndGoPenaltyYellowFlagOvertake = 3,
-    // StopAndGoPenaltyMax = 4
+    // StopAndGoPenaltyVirtualEnergy = 4,
+    // StopAndGoPenaltyMax = 5
 
     // PitstopPenaltyInvalid = 0,
     // PitstopPenaltyIgnoredPitstopWindow = 1,
@@ -610,11 +621,16 @@ typedef struct
     // DisqualifyPenaltyMax = 14
     r3e_int32 penaltyReason;
 	
-    // -1 unavailable, 0 = ignition off, 1 = ignition on but not running, 2 = ignition on and running
+    // -1 unavailable, 0 = ignition off, 1 = ignition on but not running, 2 = ignition on and starter running, 3 = ignition on and running
     r3e_int32 engineState;
 
     // Orientation in Euler coordinates
     r3e_vec3_f32 orientation;
+
+	// Reserved data
+	r3e_float32 unused1;
+	r3e_float32 unused2;
+	r3e_float32 unused3;
 } r3e_driver_data;
 
 typedef struct
@@ -706,6 +722,7 @@ typedef struct
     r3e_int32 max_incident_points;
 
     // Reserved data
+	r3e_float32 event_unused1;
     r3e_float32 event_unused2;
 
     //////////////////////////////////////////////////////////////////////////
@@ -774,6 +791,7 @@ typedef struct
     r3e_int32 current_lap_valid;
     r3e_int32 track_sector;
     r3e_float32 lap_distance;
+
     // fraction of lap completed, 0.0-1.0, -1.0 = N/A
     r3e_float32 lap_distance_fraction;
 
@@ -822,11 +840,14 @@ typedef struct
     r3e_int32 incident_points;
 	
     // -1 = N/A, 0 = this and next lap valid, 1 = this lap invalid, 2 = this and next lap invalid
-    r3e_int32 lap_valid_state;
+	r3e_int32 lap_valid_state;
+    // -1 = N/A, 0 = invalid, 1 = valid
+	r3e_int32 prev_lap_valid;
 
-    // Reserved data
-    r3e_float32 score_unused1;
-    r3e_float32 score_unused2;
+	// Reserved data
+	r3e_float32 unused1;
+	r3e_float32 unused2;
+	r3e_float32 unused3;
 
     //////////////////////////////////////////////////////////////////////////
     // Vehicle information
@@ -874,10 +895,16 @@ typedef struct
     // Note: Not valid for remote players
     r3e_float32 fuel_left;
     r3e_float32 fuel_capacity;
-    r3e_float32 fuel_per_lap;
+	r3e_float32 fuel_per_lap;
+	// Unit: Mega-Joule (MJ)
+	// Note: -1.0f when not enough data, then max recorded virtual energy per lap
+	// Note: Not valid for remote players
+	r3e_float32 virtual_energy_left;
+	r3e_float32 virtual_energy_capacity;
+	r3e_float32 virtual_energy_per_lap;
     // Unit: Celsius (C)
     // Note: Not valid for AI or remote players
-    r3e_float32 engine_water_temp;
+    r3e_float32 engine_temp;
     r3e_float32 engine_oil_temp;
     // Unit: Kilopascals (KPa)
     // Note: Not valid for AI or remote players
