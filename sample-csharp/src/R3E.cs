@@ -16,7 +16,7 @@ namespace R3E
         enum VersionMinor
         {
             // Minor version number to test against
-            R3E_VERSION_MINOR = 1
+            R3E_VERSION_MINOR = 2
         };
 
         enum Session
@@ -562,9 +562,12 @@ namespace R3E
             public Int32 EngineType;
             public Single CarWidth;
             public Single CarLength;
+            public Single Rating;
+            public Single Reputation;
 
             // Reserved data
             public Single Unused1;
+            public Single Unused2;
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -1037,7 +1040,7 @@ namespace R3E
             // -1.0 = N/A
             public Int32 AbsSetting;
 
-            // -1 = N/A, 0 = off, 1 = on, 2 = strobing
+            // -1 = N/A or dont exist on car, 0 = ignition off or headlights off, 1 = on, 2 = strobing
             public Int32 HeadLights;
 
             // Reserved data
