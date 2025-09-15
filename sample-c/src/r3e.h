@@ -18,7 +18,7 @@ enum
 enum
 {
     // Minor version number to test against
-    R3E_VERSION_MINOR = 1
+    R3E_VERSION_MINOR = 2
 };
 
 enum
@@ -523,9 +523,12 @@ typedef struct
     r3e_int32 engine_type;
     r3e_float32 car_width;
 	r3e_float32 car_length;
+	r3e_float32 rating;
+	r3e_float32 reputation;
 
 	// Reserved data
 	r3e_float32 unused1;
+	r3e_float32 unused2;
 } r3e_driver_info;
 
 typedef struct
@@ -973,7 +976,7 @@ typedef struct
     // -1 = N/A
     r3e_int32 abs_setting;
 	
-    // -1 = N/A, 0 = off, 1 = on, 2 = strobing
+    // -1 = N/A or dont exist on car, 0 = ignition off or headlights off, 1 = on, 2 = strobing
     r3e_int32 headlights;
 
     // Reserved data
