@@ -99,11 +99,8 @@ namespace R3E
             // Mandatory pitstop for four tyres not served yet
             UnservedFourTyres = 1,
 
-            // Mandatory pitstop for virftual energy not served yet
-            UnservedFourTyres = 2,
-
             // Mandatory pitstop served
-            Served = 3,
+            Served = 2,
         };
 
         enum FinishStatus
