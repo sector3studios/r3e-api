@@ -18,13 +18,26 @@ enum
 enum
 {
     // Minor version number to test against
-    R3E_VERSION_MINOR = 2
+    R3E_VERSION_MINOR = 3
 };
 
 enum
 {
     R3E_NUM_DRIVERS_MAX = 128
 };
+
+typedef enum
+{
+	R3E_GAMEMODE_UNAVAILABLE = -1,
+	R3E_GAMEMODE_TRACKTEST = 0,
+	R3E_GAMEMODE_LEADERBOARDCHALLENGE = 1,
+	R3E_GAMEMODE_COMPETITION = 2,
+	R3E_GAMEMODE_SINGLERACE = 3,
+	R3E_GAMEMODE_CHAMPIONSHIP = 4,
+	R3E_GAMEMODE_MULTIPLAYER = 5,
+	R3E_GAMEMODE_MULTIPLAYERRANKED = 6, // not impl currently
+	R3E_GAMEMODE_TRYBEFOREYOUBUY = 7,
+} r3e_gamemode;
 
 typedef enum
 {
@@ -651,6 +664,7 @@ typedef struct
     // Game State
     //////////////////////////////////////////////////////////////////////////
 
+    r3e_int32 game_mode;
     r3e_int32 game_paused;
     r3e_int32 game_in_menus;
     r3e_int32 game_in_replay;
