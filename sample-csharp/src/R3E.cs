@@ -16,7 +16,20 @@ namespace R3E
         enum VersionMinor
         {
             // Minor version number to test against
-            R3E_VERSION_MINOR = 2
+            R3E_VERSION_MINOR = 3
+        };
+        
+        enum GameMode
+        {
+            Unavailable = -1,
+            TrackTest = 0,
+            LeaderboardChallenge = 1,
+            Competition = 2,
+            SingleRace = 3,
+            Championship = 4,
+            Multiplayer = 5,
+            MultiplayerRanked = 6, // not impl currently
+            TryBeforeYouBuy = 7,
         };
 
         enum Session
@@ -698,6 +711,7 @@ namespace R3E
             // Game State
             //////////////////////////////////////////////////////////////////////////
 
+            public Int32 GameMode; // Note: See the R3E.Constant.GameMode enum
             public Int32 GamePaused;
             public Int32 GameInMenus;
             public Int32 GameInReplay;
