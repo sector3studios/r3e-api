@@ -16,7 +16,7 @@ namespace R3E
         enum VersionMinor
         {
             // Minor version number to test against
-            R3E_VERSION_MINOR = 3
+            R3E_VERSION_MINOR = 4
         };
         
         enum GameMode
@@ -167,16 +167,17 @@ namespace R3E
             Fuel = 3,
             Fronttires = 4,
             Reartires = 5,
-            Frontwing = 6,
-            Rearwing = 7,
-            Suspension = 8,
+            Body = 6,
+            Frontwing = 7,
+            Rearwing = 8,
+            Suspension = 9,
 
             // Pit menu buttons
-            ButtonTop = 9,
-            ButtonBottom = 10,
+            ButtonTop = 10,
+            ButtonBottom = 11,
 
             // Pit menu nothing selected
-            Max = 11
+            Max = 12
         };
 
         enum TireType
@@ -252,6 +253,9 @@ namespace R3E
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         internal struct PlayerData
         {
+            // Player user id
+            public Int32 UserId;
+
             // Virtual physics time
             // Unit: Ticks (1 tick = 1/400th of a second)
             public Int32 GameSimulationTicks;
