@@ -16,7 +16,7 @@ namespace R3E
         enum VersionMinor
         {
             // Minor version number to test against
-            R3E_VERSION_MINOR = 4
+            R3E_VERSION_MINOR = 5
         };
         
         enum GameMode
@@ -28,7 +28,7 @@ namespace R3E
             SingleRace = 3,
             Championship = 4,
             Multiplayer = 5,
-            MultiplayerRanked = 6, // not impl currently
+            MultiplayerRanked = 6,
             TryBeforeYouBuy = 7,
         };
 
@@ -45,7 +45,7 @@ namespace R3E
         {
             Unavailable = -1,
 
-            // Currently in garage
+            // MP race start countdown in garage
             Garage = 1,
 
             // Gridwalk or track walkthrough
@@ -205,7 +205,8 @@ namespace R3E
             Grass = 2,
             Dirt = 3,
             Gravel = 4,
-            Rumble = 5
+            Rumble = 5,
+            Concrete = 6
         };
 
         enum EngineType
@@ -721,8 +722,7 @@ namespace R3E
             public Int32 GameInMenus;
             public Int32 GameInReplay;
             public Int32 GameUsingVr;
-
-            public Int32 GameUnused1;
+            public Int32 GamePlayerInGarage;
 
             //////////////////////////////////////////////////////////////////////////
             // High Detail
@@ -924,10 +924,12 @@ namespace R3E
             // -1 = N/A, 0 = invalid, 1 = valid
             public Int32 PrevLapValid;
 
+            // -1.0 = N/A, 0.0 - 1.0
+            public Single DischargeRate;
+            public Single BrakeRegen;
+
             // Reserved data
             public Single Unused1;
-            public Single Unused2;
-            public Single Unused3;
 
             //////////////////////////////////////////////////////////////////////////
             // Vehicle information
@@ -1020,7 +1022,7 @@ namespace R3E
             // How many degrees in steer lock (center to full lock)
             // Note: Not valid for AI or remote players
             public Int32 SteerLockDegrees;
-            // How many degrees in wheel range (degrees full left to rull right)
+            // How many degrees in wheel range (degrees full left to full right)
             // Note: Not valid for AI or remote players
             public Int32 SteerWheelRangeDegrees;
 
@@ -1059,8 +1061,9 @@ namespace R3E
             // -1 = N/A or dont exist on car, 0 = ignition off or headlights off, 1 = on, 2 = strobing
             public Int32 HeadLights;
 
-            // Reserved data
-            public Single VehicleUnused1;
+            // -1 = N/A, 0 = set to Auto, 180 - 1800 = set to Manual
+            // Note: Not valid for AI or remote players
+            public Int32 SteerWheelMaxRotation;
 
             //////////////////////////////////////////////////////////////////////////
             // Tires
