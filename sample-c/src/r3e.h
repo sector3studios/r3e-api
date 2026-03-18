@@ -18,7 +18,7 @@ enum
 enum
 {
     // Minor version number to test against
-    R3E_VERSION_MINOR = 4
+    R3E_VERSION_MINOR = 5
 };
 
 enum
@@ -35,7 +35,7 @@ typedef enum
 	R3E_GAMEMODE_SINGLERACE = 3,
 	R3E_GAMEMODE_CHAMPIONSHIP = 4,
 	R3E_GAMEMODE_MULTIPLAYER = 5,
-	R3E_GAMEMODE_MULTIPLAYERRANKED = 6, // not impl currently
+	R3E_GAMEMODE_MULTIPLAYERRANKED = 6,
 	R3E_GAMEMODE_TRYBEFOREYOUBUY = 7,
 } r3e_gamemode;
 
@@ -52,7 +52,7 @@ typedef enum
 {
     R3E_SESSION_PHASE_UNAVAILABLE = -1,
 
-    // Currently in garage
+    // MP race start countdown in garage
     R3E_SESSION_PHASE_GARAGE = 1,
 
     // Gridwalk or track walkthrough
@@ -161,6 +161,7 @@ typedef enum
 	R3E_MTRL_TYPE_DIRT = 3,
 	R3E_MTRL_TYPE_GRAVEL = 4,
 	R3E_MTRL_TYPE_RUMBLE = 5,
+	R3E_MTRL_TYPE_CONCRETE = 6,
 } r3e_mtrl_type;
 
 typedef enum
@@ -673,9 +674,7 @@ typedef struct
     r3e_int32 game_in_menus;
     r3e_int32 game_in_replay;
     r3e_int32 game_using_vr;
-
-    // Reserved data
-    r3e_int32 game_unused1;
+    r3e_int32 game_player_in_garage;
 
     //////////////////////////////////////////////////////////////////////////
     // High detail
@@ -865,10 +864,12 @@ typedef struct
     // -1 = N/A, 0 = invalid, 1 = valid
 	r3e_int32 prev_lap_valid;
 
+	// -1.0 = N/A, 0.0 - 1.0
+	r3e_float32 discharge_rate;
+	r3e_float32 brake_regen;
+
 	// Reserved data
 	r3e_float32 unused1;
-	r3e_float32 unused2;
-	r3e_float32 unused3;
 
     //////////////////////////////////////////////////////////////////////////
     // Vehicle information
@@ -997,8 +998,9 @@ typedef struct
     // -1 = N/A or dont exist on car, 0 = ignition off or headlights off, 1 = on, 2 = strobing
     r3e_int32 headlights;
 
-    // Reserved data
-    r3e_float32 vehicle_unused1;
+    // -1 = N/A, 0 = set to Auto, 180 - 1800 = set to Manual
+    // Note: Not valid for AI or remote players
+    r3e_int32 steer_wheel_max_rotation;
 
     //////////////////////////////////////////////////////////////////////////
     // Tires
