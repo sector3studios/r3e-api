@@ -489,7 +489,7 @@ typedef struct
 
 typedef struct
 {
-    r3e_int32 available;
+	r3e_int32 available; // PTP system exists = 1, N/A = -1. (for applicable systems 2 = charging, 3 = charged)
     r3e_int32 engaged;
     r3e_int32 amount_left;
     r3e_float32 engaged_time_left;
