@@ -504,7 +504,7 @@ namespace R3E
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         internal struct PushToPass
         {
-            public Int32 Available;
+            public Int32 Available; // PTP system exists = 1, N/A = -1. (for applicable systems 2 = charging, 3 = charged)
             public Int32 Engaged;
             public Int32 AmountLeft;
             public Single EngagedTimeLeft;
